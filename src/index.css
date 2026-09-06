@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #080b14;
+  --color-line: #ffffff14;
+  --color-gold: #f5b841;
+  --color-gold2: #e08c1a;
+  --color-mist: #9aa5bc;
+  --color-mint: #45d6a8;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background-color: var(--color-ink);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-feature-settings: normal;
+  }
+  ::selection {
+    background: rgba(245, 184, 65, 0.3);
+    color: #fff;
+  }
+}
+
+/* Atmospheric background wash */
+.aura {
+  pointer-events: none;
+  z-index: 0;
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(120% 55% at 50% -10%, rgba(245, 184, 65, 0.16), transparent 62%),
+    radial-gradient(90% 45% at 100% 105%, rgba(69, 214, 168, 0.1), transparent 60%);
+}
+
+/* Film grain overlay */
+.grain::after {
+  content: "";
+  pointer-events: none;
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.tap {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.text-balance2 {
+  text-wrap: balance;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+.hide-scroll {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #qr-print,
+  #qr-print * {
+    visibility: visible;
+  }
+  #qr-print {
+    width: 100%;
+    max-width: 120mm;
+    margin: 0 auto;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
